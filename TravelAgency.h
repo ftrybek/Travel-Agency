@@ -44,7 +44,7 @@ public:
 
     bool remove_hotel(string name);
 
-    bool add_transaction(int id, string type, Customer *customer, Hotel *hotel, TravelAgency* travel_agency);
+    bool add_transaction(int id, string type, Customer *customer, Hotel *hotel, TravelAgency *travel_agency);
 
     // bool remove_transaction(Transactions *transaction);
 
@@ -58,7 +58,7 @@ public:
 
     void print_hotel(string name, string adress);
 
-    void print_transaction(const int& id);
+    void print_transaction(const int &id);
 
     // void show_unique_transactions(const string &name);
 
@@ -73,9 +73,9 @@ private:
 
 private:
     string name;
-    list<Customer*> customers;
-    list<Transactions*> transactions;
-    list<Hotel*> hotels;
+    list<Customer *> customers;
+    list<Transactions *> transactions;
+    list<Hotel *> hotels;
 };
 
 #endif

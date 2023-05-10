@@ -16,39 +16,39 @@ int main()
     Hotel hotel2("Shibuya", "Tokyo", "double-bed", 2, 250);
     Customer cust1("John Wayne", "jw@gmail.com", 1000);
     Customer cust2("Mary Jane", "mj@gmail.com", 2000);
-    cout<< "Hello"<<endl;
-    cout<< agency1.get_name() << endl;
-    cout<< hotel1.get_name()<< endl;
-    cout<< hotel1.get_adress()<< endl;
-    cout<< hotel1.get_room_type()<< endl;
-    cout<< hotel1.get_stay_nights()<< endl;
-    cout<< hotel1.get_price()<< endl;
-    cout<< cust1.get_name()<< endl;
-    cout<< cust1.get_email()<< endl;
-    cout<< cust1.get_account_balance()<< endl;
+    cout << "Hello" << endl;
+    cout << agency1.get_name() << endl;
+    cout << hotel1.get_name() << endl;
+    cout << hotel1.get_adress() << endl;
+    cout << hotel1.get_room_type() << endl;
+    cout << hotel1.get_stay_nights() << endl;
+    cout << hotel1.get_price() << endl;
+    cout << cust1.get_name() << endl;
+    cout << cust1.get_email() << endl;
+    cout << cust1.get_account_balance() << endl;
     agency1.set_name("RAINBOW");
-    cout<< agency1.get_name() << endl;
+    cout << agency1.get_name() << endl;
     agency1.add_customer(&cust1);
     agency1.add_customer(&cust2);
     agency1.add_hotel(&hotel1);
     agency1.add_hotel(&hotel2);
     agency1.show_customers();
     agency1.remove_customer("John Wayne");
-    cout<<"--"<<endl;
+    cout << "--" << endl;
     agency1.show_customers();
-    cout<<"--"<<endl;
+    cout << "--" << endl;
     agency1.show_hotels();
     agency1.remove_hotel("Grand");
 
-    cout<<"--"<<endl;
+    cout << "--" << endl;
     agency1.show_hotels();
-    cout<<"--"<<endl;
+    cout << "--" << endl;
     agency1.print_customer("Mary Jane");
     agency1.print_hotel("Shibuya", "Tokyo");
 
     cust1.add_hotel(&hotel2);
     agency1.add_transaction(1234, "booking", &cust1, &hotel1, &agency1);
-    agency1.print_transaction(1234);    
+    agency1.print_transaction(1234);
 
     return 0;
 }

@@ -44,31 +44,9 @@ float Customer::get_account_balance()
     return this->account_balance;
 }
 
-Hotel* Customer::find_hotel(string name)
+Hotel *Customer::find_hotel(string name)
 {
-    for (auto it = hotels.begin(); it != hotels.end(); ++it) {
-        if ((*it)->get_name() == name) {
-            return *it;
-        }
-    }
-    return nullptr;
-}
-
-Transactions* Customer::find_transaction(int id)
-{
-    for(auto it = transactions.begin(); it != transactions.end(); ++it)
-    {
-        if ((*it)->get_id() == id)
-        {
-            return *it;
-        }
-    }
-    return nullptr;
-}
-
-TravelAgency* Customer::find_travel_agency(string name)
-{
-    for(auto it = travel_agencies.begin(); it != travel_agencies.end(); ++it)
+    for (auto it = hotels.begin(); it != hotels.end(); ++it)
     {
         if ((*it)->get_name() == name)
         {
@@ -78,9 +56,33 @@ TravelAgency* Customer::find_travel_agency(string name)
     return nullptr;
 }
 
-bool Customer::book_hotel(int id, Hotel* hotel, TravelAgency* travel_agency)
+Transactions *Customer::find_transaction(int id)
 {
-    if(travel_agency == nullptr)
+    for (auto it = transactions.begin(); it != transactions.end(); ++it)
+    {
+        if ((*it)->get_id() == id)
+        {
+            return *it;
+        }
+    }
+    return nullptr;
+}
+
+TravelAgency *Customer::find_travel_agency(string name)
+{
+    for (auto it = travel_agencies.begin(); it != travel_agencies.end(); ++it)
+    {
+        if ((*it)->get_name() == name)
+        {
+            return *it;
+        }
+    }
+    return nullptr;
+}
+
+bool Customer::book_hotel(int id, Hotel *hotel, TravelAgency *travel_agency)
+{
+    if (travel_agency == nullptr)
     {
         return false;
     }
@@ -89,23 +91,23 @@ bool Customer::book_hotel(int id, Hotel* hotel, TravelAgency* travel_agency)
     return true;
 }
 
-bool Customer::cancel_booking(int id, Hotel* hotel, TravelAgency* travel_agency)
+bool Customer::cancel_booking(int id, Hotel *hotel, TravelAgency *travel_agency)
 {
     string type = "cancelling";
     // travel_agency->add_transaction(id, type, this, hotel);
     return true;
 }
-        // void remove_all_transactions();
+// void remove_all_transactions();
 
-        // void remove_all_hotels();
+// void remove_all_hotels();
 
-        // void remove_all_travel_agencies(TravelAgency* travel_agency);
+// void remove_all_travel_agencies(TravelAgency* travel_agency);
 
-        // bool add_transaction(Transactions* transaction);
+// bool add_transaction(Transactions* transaction);
 
-        // bool remove_transaction(Transactions* transaction);
+// bool remove_transaction(Transactions* transaction);
 
-bool Customer::add_hotel(Hotel* hotel)
+bool Customer::add_hotel(Hotel *hotel)
 {
     if (hotel == nullptr)
     {
@@ -121,13 +123,14 @@ bool Customer::add_hotel(Hotel* hotel)
 
 bool Customer::remove_hotel(string name)
 {
-    if(find_hotel(name) == nullptr)
+    if (find_hotel(name) == nullptr)
     {
         return false;
     }
-    for(auto it = hotels.begin(); it != hotels.end(); ++it)
+    for (auto it = hotels.begin(); it != hotels.end(); ++it)
     {
-        if ((*it)->get_name() == name) {
+        if ((*it)->get_name() == name)
+        {
             hotels.erase(it);
             return true; // exit the function after removing the customer
         }
@@ -135,7 +138,6 @@ bool Customer::remove_hotel(string name)
     return false;
 }
 
-        // void remove_travel_agency(TravelAgency* travel_agency);
+// void remove_travel_agency(TravelAgency* travel_agency);
 
-        // bool add_travel_agency(TravelAgency* travel_agency);
-
+// bool add_travel_agency(TravelAgency* travel_agency);

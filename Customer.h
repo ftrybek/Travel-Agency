@@ -16,65 +16,63 @@ class Transactions;
 
 class Customer
 {
-    private:
+private:
+    string name;
 
-        string name;
+    string email;
 
-        string email;
+    float account_balance;
 
-        float account_balance;
+    list<TravelAgency *> travel_agencies;
 
-        list<TravelAgency*> travel_agencies;
+    list<Transactions *> transactions;
 
-        list<Transactions*> transactions;
+    list<Hotel *> hotels;
 
-        list<Hotel*> hotels;
+    Hotel *find_hotel(string name);
+    Transactions *find_transaction(int id);
+    TravelAgency *find_travel_agency(string name);
 
-        Hotel* find_hotel(string name);
-        Transactions* find_transaction(int id);
-        TravelAgency* find_travel_agency(string name);
+public:
+    Customer(string name, string email, float account_balance);
 
-    public:
+    ~Customer();
 
-        Customer(string name, string email, float account_balance);
+    void set_name(string name);
 
-        ~Customer();
+    void set_email(string email);
 
-        void set_name(string name);
+    void set_account_balance(float account_balance);
 
-        void set_email(string email);
+    string get_name();
 
-        void set_account_balance(float account_balance);
+    string get_email();
 
-        string get_name();
+    float get_account_balance();
 
-        string get_email();
+    bool book_hotel(int id, Hotel *hotel, TravelAgency *travel_agency);
 
-        float get_account_balance();
+    bool cancel_booking(int id, Hotel *hotel, TravelAgency *travel_agency);
 
-        bool book_hotel(int id, Hotel* hotel, TravelAgency* travel_agency);
+    // void remove_all_transactions();
 
-        bool cancel_booking(int id, Hotel* hotel, TravelAgency* travel_agency);
+    // void remove_all_hotels() {
 
-        // void remove_all_transactions();
+    // }
 
-        // void remove_all_hotels() {
+    // void remove_all_travel_agencies(TravelAgency* travel_agency);
 
-        // }
+    // bool add_transaction(Transactions* transaction);
 
-        // void remove_all_travel_agencies(TravelAgency* travel_agency);
+    // bool remove_transaction(Transactions* transaction);
 
-        // bool add_transaction(Transactions* transaction);
+    bool add_hotel(Hotel *hotel);
 
-        // bool remove_transaction(Transactions* transaction);
+    bool remove_hotel(string name);
 
-        bool add_hotel(Hotel* hotel);
+    // void remove_travel_agency(TravelAgency* travel_agency);
 
-        bool remove_hotel(string name);
-
-        // void remove_travel_agency(TravelAgency* travel_agency);
-
-        // bool add_travel_agency(TravelAgency* travel_agency);
+    // bool add_travel_agency(TravelAgency* travel_agency);
 };
 
 #endif

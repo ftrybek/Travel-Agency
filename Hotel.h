@@ -16,73 +16,71 @@ class Transactions;
 
 class Hotel
 {
-    private:
+private:
+    string name;
 
-        string name;
+    string adress;
 
-        string adress;
+    string room_type;
 
-        string room_type;
+    int stay_nights;
 
-        int stay_nights;
+    float price;
 
-        float price;
+    list<Customer *> customers;
 
-        list<Customer*> customers;
+    list<Transactions *> transactions;
 
-        list<Transactions*> transactions;
+    list<TravelAgency *> travel_agencies;
 
-        list<TravelAgency*> travel_agencies;
+    Customer *find_customer(string name);
+    Transactions *find_transaction(int id);
+    TravelAgency *find_travel_agency(string name);
 
-        Customer* find_customer(string name);
-        Transactions* find_transaction(int id);
-        TravelAgency* find_travel_agency(string name);
+public:
+    Hotel();
 
-    public:
+    Hotel(string name, string adress, string room_type, int stay_nights, float price);
 
-        Hotel();
+    ~Hotel();
 
-        Hotel(string name, string adress, string room_type, int stay_nights, float price);
+    bool add_customer();
 
-        ~Hotel();
+    bool remove_customer();
 
-        bool add_customer();
+    void remove_all_transactions();
 
-        bool remove_customer();
+    void remove_all_customers();
 
-        void remove_all_transactions();
+    void remove_travel_agencies(TravelAgency *travel_agency);
 
-        void remove_all_customers();
+    bool add_transaction(Transactions *transaction);
 
-        void remove_travel_agencies(TravelAgency* travel_agency);
+    bool remove_transaction(Transactions *transaction);
 
-        bool add_transaction(Transactions* transaction);
+    bool add_travel_agency(TravelAgency *travel_agency);
 
-        bool remove_transaction(Transactions* transaction);
+    bool remove_travel_agency(TravelAgency *travel_agency);
 
-        bool add_travel_agency(TravelAgency* travel_agency);
+    string get_name();
 
-        bool remove_travel_agency(TravelAgency* travel_agency);
+    string get_adress();
 
-        string get_name();
+    string get_room_type();
 
-        string get_adress();
+    int get_stay_nights();
 
-        string get_room_type();
+    float get_price();
 
-        int get_stay_nights();
+    void set_name(string name);
 
-        float get_price();
+    void set_adress(string adress);
 
-        void set_name(string name);
+    void set_room_type(string room_type);
 
-        void set_adress(string adress);
+    void set_stay_nights(int stay_nights);
 
-        void set_room_type(string room_type);
-
-        void set_stay_nights(int stay_nights);
-
-        void set_price(float price);
+    void set_price(float price);
 };
 
 #endif
