@@ -16,35 +16,27 @@ class TravelAgency;
 
 class Transactions
 {
-private:
-    int id;
 
-    string type;
-
-    Customer *customer;
-
-    Hotel *hotel;
-
-    TravelAgency *travel_agency;
 
 public:
     Transactions(int id, string type, Customer *customer, Hotel *hotel, TravelAgency *travel_agency);
-
     ~Transactions();
-
-    int get_id();
-
-    string get_type();
-
-    Customer *get_customer();
-
-    Hotel *get_hotel();
-
-    TravelAgency *get_travel_agency();
-
     // void print_transaction();
 
     // bool is_enough_balance();
+    int get_id();
+    string get_type();
+    Customer *get_customer();
+    Hotel *get_hotel();
+    TravelAgency *get_travel_agency();
+    
+private:
+    int id;
+    string type;
+    
+    Customer *customer;
+    Hotel *hotel;
+    TravelAgency *travel_agency;
 };
 
 #endif

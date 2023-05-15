@@ -16,49 +16,20 @@ class Transactions;
 
 class Customer
 {
-private:
-    string name;
-
-    string email;
-
-    float account_balance;
-
-    list<TravelAgency *> travel_agencies;
-
-    list<Transactions *> transactions;
-
-    list<Hotel *> hotels;
-
-    Hotel *find_hotel(string name);
-    Transactions *find_transaction(int id);
-    TravelAgency *find_travel_agency(string name);
-
 public:
     Customer(string name, string email, float account_balance);
-
     ~Customer();
 
-    void set_name(string name);
-
-    void set_email(string email);
-
-    void set_account_balance(float account_balance);
-
-    string get_name();
-
-    string get_email();
-
-    float get_account_balance();
-
     bool book_hotel(int id, Hotel *hotel, TravelAgency *travel_agency);
-
     bool cancel_booking(int id, Hotel *hotel, TravelAgency *travel_agency);
+    bool add_hotel(Hotel *hotel);
+    bool remove_hotel(string name);
+    bool add_travel_agency(TravelAgency* travel_agency);
+    bool remove_travel_agency(string name);
 
-    // void remove_all_transactions();
+    void remove_all_transactions();
+    void remove_all_hotels();
 
-    // void remove_all_hotels() {
-
-    // }
 
     // void remove_all_travel_agencies(TravelAgency* travel_agency);
 
@@ -66,13 +37,29 @@ public:
 
     // bool remove_transaction(Transactions* transaction);
 
-    bool add_hotel(Hotel *hotel);
 
-    bool remove_hotel(string name);
 
-    // void remove_travel_agency(TravelAgency* travel_agency);
+    void set_name(string name);
+    void set_email(string email);
+    void set_account_balance(float account_balance);
 
-    // bool add_travel_agency(TravelAgency* travel_agency);
+    string get_name();
+    string get_email();
+    float get_account_balance();
+
+private:
+    Hotel *find_hotel(string name);
+    Transactions *find_transaction(int id);
+    TravelAgency *find_travel_agency(string name);
+
+private:
+    string name;
+    string email;
+    float account_balance;
+
+    list<TravelAgency *> travel_agencies;
+    list<Transactions *> transactions;
+    list<Hotel *> hotels;
 };
 
 #endif

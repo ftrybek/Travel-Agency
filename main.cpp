@@ -44,8 +44,8 @@ int main()
     agency1.show_hotels();
     cout << "--" << endl;
     agency1.print_customer("Mary Jane");
-    agency1.print_hotel("Shibuya", "Tokyo");
-
+    agency1.print_hotel("Shibuya");
+    cout<< "CHUUUUJ"<< endl;
     cust1.add_hotel(&hotel2);
     agency1.add_transaction(1234, "booking", &cust1, &hotel1, &agency1);
     agency1.print_transaction(1234);

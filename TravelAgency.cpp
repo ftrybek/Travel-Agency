@@ -32,7 +32,7 @@ Customer *TravelAgency::get_customer(string name)
     return find_customer(name);
 }
 
-Hotel *TravelAgency::get_hotel(string name, string adress)
+Hotel *TravelAgency::get_hotel(string name)
 {
     return find_hotel(name);
 }
@@ -73,22 +73,24 @@ Customer *TravelAgency::find_customer(string name)
 
 Transactions *TravelAgency::find_transaction(int id)
 {
-    for (auto &c : transactions)
-    {
-        if (c->get_id() == id)
-        {
-            return c;
-        }
-    }
-    return nullptr;
-
-    //     for (auto& c : transactions) {
-    //     if (c.get_id() == id) {
-    //         Transactions* ptr = &c;
-    //         return ptr;
+    // for (auto &c : transactions)
+    // {
+    //     if (c->get_id() == id)
+    //     {
+    //         return c;
     //     }
     // }
     // return nullptr;
+
+    for (auto &c : transactions)
+    {
+        if (c.get_id() == id)
+        {
+            Transactions *ptr = &c;
+            return ptr;
+        }
+    }
+    return nullptr;
 }
 
 bool TravelAgency::add_customer(Customer *customer)
@@ -158,7 +160,7 @@ bool TravelAgency::remove_hotel(string name)
         if ((*it) == todelete)
         {
             hotels.erase(it);
-            return true; // exit the function after removing the company
+            return true;
         }
     }
     return false;
@@ -166,9 +168,14 @@ bool TravelAgency::remove_hotel(string name)
 
 bool TravelAgency::add_transaction(int id, string type, Customer *customer, Hotel *hotel, TravelAgency *travel_agency)
 {
-    // if (!Check_Transaction(ID, customer, amountShares, company, type)) {
+    // if (!check_transaction(int id, string type, Customer *customer, Hotel *hotel)) {
     //     return false;
-    //}
+    // }
+
+    transactions.emplace_back(id, type, customer, hotel, this);
+
+    // Transactions::Transactions(id, type, customer, hotel, this);
+    // transactions.push_back(id, type, customer, hotel, this);
 
     // if (type == "booking") {
     //     Update_InvestedMoney(company->Get_ShareCost()*amountShares);
@@ -188,6 +195,44 @@ bool TravelAgency::add_transaction(int id, string type, Customer *customer, Hote
 }
 // bool remove_transaction(Transactions* transaction);
 
+bool TravelAgency::check_transaction(int id, string type, Customer *customer, Hotel *hotel)
+{
+    if (find_transaction(id) != nullptr && find_transaction(id)->get_travel_agency() == this) {   //there is the same id
+        return false;
+    }
+    if (customer == nullptr || find_customer(customer->get_name()) == nullptr) {  // add customer if there is not
+        return false;
+    }
+    if (hotel == nullptr || find_hotel(hotel->get_name()) == nullptr) {  //add company if there is not
+        return false;
+    }
+    // if (company->Get_ShareCost() < 2) { //share lover then 2Euro
+    //     return false;
+    // }
+    // if (company->Get_ShareCost() * amountShares < 10) { //transaction is for less then 10 Euro
+    //     return false;
+    // }
+    // if (company->Get_Money() < 5000) {  //company does not have enought money to be able to be bought
+    //     return false;
+    // }
+    if (customer->get_account_balance() < hotel->get_price()) {  //am i reach enought?
+        return false;
+    }
+    // if (customer->Get_PocketMoney() < company->Get_ShareCost() * amountShares) {
+    //     return false;
+    //}
+    if (type != "booking" && type != "cancelling") {      //proper name?
+        return false;
+    }
+    // if (company->Get_FreeShares() < amountShares && type == "buy") {    //enought shares for buying?
+    //     return false;
+    // }
+    // if (company->Get_SoldShares() < amountShares && type == "sold") {   //enought shares  for selling?
+    //     return false;
+    // }
+    return true;
+}
+
 void TravelAgency::print_customer(string name)
 {
     cout << "Name : " << get_customer(name)->get_name() << endl;
@@ -195,32 +240,28 @@ void TravelAgency::print_customer(string name)
     cout << "Account balance : " << get_customer(name)->get_account_balance() << endl;
 }
 
-void TravelAgency::print_hotel(string name, string adress)
+void TravelAgency::print_hotel(string name)
 {
-    cout << "Name : " << get_hotel(name, adress)->get_name() << endl;
-    cout << "Adress : " << get_hotel(name, adress)->get_adress() << endl;
-    cout << "Room type : " << get_hotel(name, adress)->get_room_type() << endl;
-    cout << "Nights of stay : " << get_hotel(name, adress)->get_stay_nights() << endl;
-    cout << "Price : " << get_hotel(name, adress)->get_price() << endl;
+    cout << "Name : " << get_hotel(name)->get_name() << endl;
+    cout << "Adress : " << get_hotel(name)->get_adress() << endl;
+    cout << "Room type : " << get_hotel(name)->get_room_type() << endl;
+    cout << "Nights of stay : " << get_hotel(name)->get_stay_nights() << endl;
+    cout << "Price : " << get_hotel(name)->get_price() << endl;
 }
 
 void TravelAgency::print_transaction(const int &id)
 {
     for (auto it = transactions.begin(); it != transactions.end(); ++it)
     {
-        // if (it->get_id() == id) {
-        //     cout << "ID : " << id << endl;
-        //     cout << "Customer : " << it->get_customer()->get_name() << endl;
-        if ((*it)->get_id() == id)
+        if (it->get_id() == id)
         {
-            cout << "ID : " << id << endl;
-            cout << "Customer : " << (*it)->get_customer()->get_name() << endl;
-            //     cout << "Customer : " << (*it)->get_customer()->get_name() << endl;
-            //     // cout << "Company : " << it->Get_Company()->Get_Name() << endl;
-            //     // cout << "Money : " << it->Get_Amount() << endl;
-            //     // cout << "Shares : " << it->Get_Shares() << endl;
-            //     // cout << "Price per share : " <<(double) it->Get_Amount() / it->Get_Shares() << endl;
-            //     return;
+            cout << "------------------------" << endl;
+            cout << "ID : " << it->get_id() << endl;
+            cout << "Customer : " << it->get_customer()->get_name() << endl;
+            cout << "Hotel : " << it->get_hotel()->get_name() << endl;
+            cout << "Travel Agency : " << this->get_name() << endl;
+            cout << "Price : " << it->get_hotel()->get_price() << endl;
+            cout << "------------------------" << endl;
         }
     }
 }
@@ -251,8 +292,19 @@ void TravelAgency::show_hotels()
     cout << "------------------------" << endl;
 }
 
-// void show_transactions();
-
+void TravelAgency::show_transactions()
+{
+    for (auto it = transactions.begin(); it != transactions.end(); ++it)
+    {
+        cout << "------------------------" << endl;
+        cout << "ID : " << it->get_id() << endl;
+        cout << "Customer : " << it->get_customer()->get_name() << endl;
+        cout << "Hotel : " << it->get_hotel()->get_name() << endl;
+        cout << "Travel Agency : " << this->get_name() << endl;
+        cout << "Price : " << it->get_hotel()->get_price() << endl;
+    }
+    cout << "------------------------" << endl;
+}
 // void show_unique_transactions(const string& name);
 
 // bool check_transaction(int id, string type, Customer* customer, Hotel* hotel);

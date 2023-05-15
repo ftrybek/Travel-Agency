@@ -25,24 +25,6 @@ Hotel::~Hotel()
 	transactions.clear();
 }
 
-// bool add_customer();
-
-// bool remove_customer();
-
-// void remove_all_transactions();
-
-// void remove_all_customers();
-
-// void remove_travel_agencies(TravelAgency* travel_agency);
-
-// bool add_transaction(Transactions* transaction);
-
-// bool remove_transaction(Transactions* transaction);
-
-// bool add_travel_agency(TravelAgency* travel_agency);
-
-// bool remove_travel_agency(TravelAgency* travel_agency);
-
 string Hotel::get_name()
 {
 	return this->name;
@@ -128,3 +110,97 @@ TravelAgency *Hotel::find_travel_agency(string name)
 	}
 	return nullptr;
 }
+
+bool Hotel::add_customer(Customer *new_customer)
+{
+	if (new_customer == nullptr)
+	{
+		return false;
+	}
+	if (find_customer(new_customer->get_name()))
+	{
+		return false;
+	}
+	customers.emplace_back(new_customer);
+	return true;
+}
+
+bool Hotel::remove_customer(string name)
+{
+	for (auto it = customers.begin(); it != customers.end(); ++it)
+	{
+		if ((*it)->get_name() == name)
+		{
+			customers.erase(it);
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Hotel::add_travel_agency(TravelAgency *travel_agency)
+{
+	if (travel_agency == nullptr)
+	{
+		return false;
+	}
+	if (find_travel_agency(travel_agency->get_name()))
+	{
+		return false;
+	}
+	travel_agencies.emplace_back(travel_agency);
+	return true;
+}
+
+bool Hotel::remove_travel_agency(TravelAgency *travel_agency)
+{
+	for (auto it = travel_agencies.begin(); it != travel_agencies.end(); ++it)
+	{
+		if ((*it)->get_name() == name)
+		{
+			travel_agencies.erase(it);
+			return true;
+		}
+	}
+	return false;
+}
+
+void Hotel::remove_all_transactions()
+{
+	transactions.clear();
+}
+
+void Hotel::remove_all_customers()
+{
+	customers.clear();
+}
+
+// bool Company::Company_Remove_StockMarket(string name)
+// {
+// 		for (auto it = stockmarkets.begin(); it != stockmarkets.end(); ++it) {
+// 			if ((*it)->Get_Name() == name) {
+// 				stockmarkets.erase(it);
+// 				return true;
+// 			}
+// 		}
+// 		return false;
+// }
+
+
+// bool add_transaction(Transactions* transaction);
+
+// bool remove_transaction(Transactions* transaction);
+
+// void remove_travel_agencies(TravelAgency* travel_agency);
+// void Company::Remove_StockMarkets(StockMarket* stockmarket)
+// {
+// 	auto it = stockmarkets.begin();
+// 	stockmarkets.erase(
+// 		remove_if(
+// 			stockmarkets.begin(),
+// 			stockmarkets.end(),
+// 			[stockmarket](auto t) { return t == stockmarket; }
+// 		),
+// 		stockmarkets.end()
+// 	);
+// }

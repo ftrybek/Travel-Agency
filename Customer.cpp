@@ -97,15 +97,31 @@ bool Customer::cancel_booking(int id, Hotel *hotel, TravelAgency *travel_agency)
     // travel_agency->add_transaction(id, type, this, hotel);
     return true;
 }
-// void remove_all_transactions();
 
-// void remove_all_hotels();
+void Customer::remove_all_transactions()
+{
+    transactions.clear();
+}
 
+void Customer::remove_all_hotels()
+{
+    hotels.clear();
+}
 // void remove_all_travel_agencies(TravelAgency* travel_agency);
+// void Customer::Remove_StockMarket(StockMarket* stockmarket)
+// {
+//     auto it = stockmarkets.begin();
+//     stockmarkets.erase(
+//         remove_if(
+//             stockmarkets.begin(),
+//             stockmarkets.end(),
+//             [stockmarket](auto t) { return t == stockmarket; }
+//         ),
+//         stockmarkets.end()
+//     );
+// }
 
-// bool add_transaction(Transactions* transaction);
 
-// bool remove_transaction(Transactions* transaction);
 
 bool Customer::add_hotel(Hotel *hotel)
 {
@@ -132,12 +148,42 @@ bool Customer::remove_hotel(string name)
         if ((*it)->get_name() == name)
         {
             hotels.erase(it);
-            return true; // exit the function after removing the customer
+            return true;
         }
     }
     return false;
 }
 
-// void remove_travel_agency(TravelAgency* travel_agency);
+bool Customer::add_travel_agency(TravelAgency *travel_agency)
+{
+    if (travel_agency == nullptr)
+    {
+        return false;
+    }
+    if (find_travel_agency(travel_agency->get_name()))
+    {
+        return false;
+    }
+    travel_agencies.__emplace_back(travel_agency);
+    return true;
+}
 
-// bool add_travel_agency(TravelAgency* travel_agency);
+bool Customer::remove_travel_agency(string name)
+{
+    if (find_travel_agency(name) == nullptr)
+    {
+        return false;
+    }
+    for (auto it = travel_agencies.begin(); it != travel_agencies.end(); ++it)
+    {
+        if ((*it)->get_name() == name)
+        {
+            travel_agencies.erase(it);
+            return true;
+        }
+    }
+    return false;
+}
+// bool add_transaction(Transactions* transaction);
+
+// bool remove_transaction(Transactions* transaction);
