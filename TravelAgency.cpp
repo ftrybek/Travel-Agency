@@ -168,27 +168,21 @@ bool TravelAgency::remove_hotel(string name)
 
 bool TravelAgency::add_transaction(int id, string type, Customer *customer, Hotel *hotel, TravelAgency *travel_agency)
 {
-    // if (!check_transaction(int id, string type, Customer *customer, Hotel *hotel)) {
-    //     return false;
-    // }
+    if (!check_transaction(id, type, customer, hotel))
+    {
+        return false;
+    }
 
     transactions.emplace_back(id, type, customer, hotel, this);
 
-    // Transactions::Transactions(id, type, customer, hotel, this);
-    // transactions.push_back(id, type, customer, hotel, this);
-
-    // if (type == "booking") {
-    //     Update_InvestedMoney(company->Get_ShareCost()*amountShares);
-    //     customer->Set_InvestedMoney(customer->Get_InvestedMoney() + amountShares * company->Get_ShareCost());
-    //     customer->Set_PocketMoney(customer->Get_PocketMoney() - amountShares * company->Get_ShareCost());
-    //     company->Update_SoldShares(amountShares);
-    // }
-    // else {
-    //     Update_InvestedMoney(company->Get_ShareCost() * amountShares*(-1));
-    //     customer->Set_InvestedMoney(customer->Get_InvestedMoney() - amountShares * company->Get_ShareCost());
-    //     customer->Set_PocketMoney(customer->Get_PocketMoney() + amountShares * company->Get_ShareCost());
-    //     company->Update_SoldShares(amountShares*(-1));
-    // }
+    if (type == "booking")
+    {
+        customer->set_account_balance(customer->get_account_balance() - hotel->get_price());
+    }
+    if (type == "cancelling")
+    {
+        customer->set_account_balance(customer->get_account_balance() + hotel->get_price() / 2);
+    }
     // add poinetrs
     // Add_Pointers(customer, company, this, this->Get_Transaction(ID),amountShares,type);
     return true;
@@ -197,39 +191,34 @@ bool TravelAgency::add_transaction(int id, string type, Customer *customer, Hote
 
 bool TravelAgency::check_transaction(int id, string type, Customer *customer, Hotel *hotel)
 {
-    if (find_transaction(id) != nullptr && find_transaction(id)->get_travel_agency() == this) {   //there is the same id
+    if (find_transaction(id) != nullptr && find_transaction(id)->get_travel_agency() == this)
+    {
         return false;
     }
-    if (customer == nullptr || find_customer(customer->get_name()) == nullptr) {  // add customer if there is not
+    if (customer == nullptr || find_customer(customer->get_name()) == nullptr)
+    {
         return false;
     }
-    if (hotel == nullptr || find_hotel(hotel->get_name()) == nullptr) {  //add company if there is not
+    if (hotel == nullptr || find_hotel(hotel->get_name()) == nullptr)
+    {
         return false;
     }
-    // if (company->Get_ShareCost() < 2) { //share lover then 2Euro
-    //     return false;
-    // }
-    // if (company->Get_ShareCost() * amountShares < 10) { //transaction is for less then 10 Euro
-    //     return false;
-    // }
-    // if (company->Get_Money() < 5000) {  //company does not have enought money to be able to be bought
-    //     return false;
-    // }
-    if (customer->get_account_balance() < hotel->get_price()) {  //am i reach enought?
+    if (hotel->get_stay_nights() < 1)
+    {
         return false;
     }
-    // if (customer->Get_PocketMoney() < company->Get_ShareCost() * amountShares) {
-    //     return false;
-    //}
-    if (type != "booking" && type != "cancelling") {      //proper name?
+    if (hotel->get_price() < 1)
+    {
         return false;
     }
-    // if (company->Get_FreeShares() < amountShares && type == "buy") {    //enought shares for buying?
-    //     return false;
-    // }
-    // if (company->Get_SoldShares() < amountShares && type == "sold") {   //enought shares  for selling?
-    //     return false;
-    // }
+    if (customer->get_account_balance() < hotel->get_price())
+    {
+        return false;
+    }
+    if (type != "booking" && type != "cancelling")
+    {
+        return false;
+    }
     return true;
 }
 
@@ -260,6 +249,7 @@ void TravelAgency::print_transaction(const int &id)
             cout << "Customer : " << it->get_customer()->get_name() << endl;
             cout << "Hotel : " << it->get_hotel()->get_name() << endl;
             cout << "Travel Agency : " << this->get_name() << endl;
+            cout << "Type : " << it->get_type() << endl;
             cout << "Price : " << it->get_hotel()->get_price() << endl;
             cout << "------------------------" << endl;
         }
@@ -306,7 +296,5 @@ void TravelAgency::show_transactions()
     cout << "------------------------" << endl;
 }
 // void show_unique_transactions(const string& name);
-
-// bool check_transaction(int id, string type, Customer* customer, Hotel* hotel);
 
 // void allocate_pointers(TravelAgency* travel_agency, Customer* customer, Hotel* hotel, Transactions* transaction, string type);

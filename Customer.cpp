@@ -87,14 +87,14 @@ bool Customer::book_hotel(int id, Hotel *hotel, TravelAgency *travel_agency)
         return false;
     }
     string type = "booking";
-    // travel_agency->add_transaction(id, type, this, hotel);
+    travel_agency->add_transaction(id, type, this, hotel, travel_agency);
     return true;
 }
 
 bool Customer::cancel_booking(int id, Hotel *hotel, TravelAgency *travel_agency)
 {
     string type = "cancelling";
-    // travel_agency->add_transaction(id, type, this, hotel);
+    travel_agency->add_transaction(id, type, this, hotel, travel_agency);
     return true;
 }
 

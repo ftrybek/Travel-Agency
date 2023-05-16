@@ -13,7 +13,7 @@ int main()
 
     TravelAgency agency1(TRAVEL_AGENCY_NAME);
     Hotel hotel1("Grand", "London", "single-bed", 3, 400);
-    Hotel hotel2("Shibuya", "Tokyo", "double-bed", 2, 250);
+    Hotel hotel2("Shibuya", "Tokyo", "double-bed", 2, 249.5);
     Customer cust1("John Wayne", "jw@gmail.com", 1000);
     Customer cust2("Mary Jane", "mj@gmail.com", 2000);
     cout << "Hello" << endl;
@@ -47,8 +47,12 @@ int main()
     agency1.print_hotel("Shibuya");
     cout<< "CHUUUUJ"<< endl;
     cust1.add_hotel(&hotel2);
-    agency1.add_transaction(1234, "booking", &cust1, &hotel1, &agency1);
+    agency1.add_transaction(1234, "booking", &cust2, &hotel2, &agency1);
     agency1.print_transaction(1234);
+    agency1.print_customer("Mary Jane");
+    cust2.cancel_booking(1111, &hotel2, &agency1);
+    agency1.print_transaction(1111);
+    agency1.print_customer("Mary Jane");
 
     return 0;
 }
