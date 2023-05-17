@@ -24,20 +24,13 @@ public:
     bool cancel_booking(int id, Hotel *hotel, TravelAgency *travel_agency);
     bool add_hotel(Hotel *hotel);
     bool remove_hotel(string name);
-    bool add_travel_agency(TravelAgency* travel_agency);
+    bool add_travel_agency(TravelAgency *travel_agency);
     bool remove_travel_agency(string name);
-
+    void remove_travel_agency(TravelAgency *travel_agency);
+    bool add_transaction(Transactions *transaction);
+    bool remove_transaction(Transactions *transaction);
     void remove_all_transactions();
     void remove_all_hotels();
-
-
-    // void remove_all_travel_agencies(TravelAgency* travel_agency);
-
-    // bool add_transaction(Transactions* transaction);
-
-    // bool remove_transaction(Transactions* transaction);
-
-
 
     void set_name(string name);
     void set_email(string email);

@@ -165,6 +165,21 @@ bool Hotel::remove_travel_agency(TravelAgency *travel_agency)
 	return false;
 }
 
+bool Hotel::add_transaction(Transactions *transaction)
+{
+	if (transaction == nullptr)
+	{
+		return false;
+	}
+	if (find_transaction(transaction->get_id()))
+	{
+		return false;
+	}
+	transactions.emplace_back(transaction);
+	return true;
+}
+// bool remove_transaction(Transactions* transaction);
+
 void Hotel::remove_all_transactions()
 {
 	transactions.clear();
@@ -175,6 +190,17 @@ void Hotel::remove_all_customers()
 	customers.clear();
 }
 
+void Hotel::remove_travel_agencies(TravelAgency *travel_agency)
+{
+	auto it = travel_agencies.begin();
+	travel_agencies.erase(
+		remove_if(
+			travel_agencies.begin(),
+			travel_agencies.end(),
+			[travel_agency](auto t)
+			{ return t == travel_agency; }),
+		travel_agencies.end());
+}
 // bool Company::Company_Remove_StockMarket(string name)
 // {
 // 		for (auto it = stockmarkets.begin(); it != stockmarkets.end(); ++it) {
@@ -184,23 +210,4 @@ void Hotel::remove_all_customers()
 // 			}
 // 		}
 // 		return false;
-// }
-
-
-// bool add_transaction(Transactions* transaction);
-
-// bool remove_transaction(Transactions* transaction);
-
-// void remove_travel_agencies(TravelAgency* travel_agency);
-// void Company::Remove_StockMarkets(StockMarket* stockmarket)
-// {
-// 	auto it = stockmarkets.begin();
-// 	stockmarkets.erase(
-// 		remove_if(
-// 			stockmarkets.begin(),
-// 			stockmarkets.end(),
-// 			[stockmarket](auto t) { return t == stockmarket; }
-// 		),
-// 		stockmarkets.end()
-// 	);
 // }

@@ -53,6 +53,8 @@ int main()
     cust2.cancel_booking(1111, &hotel2, &agency1);
     agency1.print_transaction(1111);
     agency1.print_customer("Mary Jane");
+        cout << "Hello" << endl;
+    agency1.show_unique_transactions("Shibuya");
 
     return 0;
 }

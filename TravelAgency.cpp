@@ -37,7 +37,7 @@ Hotel *TravelAgency::get_hotel(string name)
     return find_hotel(name);
 }
 
-Transactions *TravelAgency::get_transaction(int id, string name_customer, string name_hotel)
+Transactions *TravelAgency::get_transaction(int id)
 {
     return find_transaction(id);
 }
@@ -49,11 +49,11 @@ TravelAgency *TravelAgency::get_travel_agency()
 
 Hotel *TravelAgency::find_hotel(string name)
 {
-    for (auto &c : hotels)
+    for (auto & h : hotels)
     {
-        if (c->get_name() == name)
+        if (h->get_name() == name)
         {
-            return c;
+            return h;
         }
     }
     return nullptr;
@@ -73,15 +73,6 @@ Customer *TravelAgency::find_customer(string name)
 
 Transactions *TravelAgency::find_transaction(int id)
 {
-    // for (auto &c : transactions)
-    // {
-    //     if (c->get_id() == id)
-    //     {
-    //         return c;
-    //     }
-    // }
-    // return nullptr;
-
     for (auto &c : transactions)
     {
         if (c.get_id() == id)
@@ -99,7 +90,7 @@ bool TravelAgency::add_customer(Customer *customer)
     {
         return false;
     }
-    customers.__emplace_back(customer);
+    customers.emplace_back(customer);
     return true;
 }
 
@@ -113,9 +104,9 @@ bool TravelAgency::remove_customer(string name)
         return false;
     }
 
-    // todelete->remove_all_transactions();
-    // todelete->remove_all_hotels();
-    // todelete->remove_all_travel_agencies(this);
+    todelete->remove_all_transactions();
+    todelete->remove_all_hotels();
+    todelete->remove_travel_agency(this);
     // Remove_TransactionCustomer(todelete);
 
     for (auto it = customers.begin(); it != customers.end(); ++it)
@@ -136,7 +127,7 @@ bool TravelAgency::add_hotel(Hotel *hotel)
     {
         return false;
     }
-    hotels.__emplace_back(hotel);
+    hotels.emplace_back(hotel);
     return true;
 }
 
@@ -150,9 +141,9 @@ bool TravelAgency::remove_hotel(string name)
         return false;
     }
 
-    // todelete->Remove_AllTransactions();
-    // todelete->Remove_AllCustomers();
-    // todelete->Remove_StockMarkets(this);
+    todelete->remove_all_transactions();
+    todelete->remove_all_customers();
+    todelete->remove_travel_agency(this);
     // Remove_TransactionCompany(todelete);
 
     for (auto it = hotels.begin(); it != hotels.end(); ++it)
@@ -183,8 +174,14 @@ bool TravelAgency::add_transaction(int id, string type, Customer *customer, Hote
     {
         customer->set_account_balance(customer->get_account_balance() + hotel->get_price() / 2);
     }
-    // add poinetrs
-    // Add_Pointers(customer, company, this, this->Get_Transaction(ID),amountShares,type);
+
+    customer->add_hotel(hotel);
+    customer->add_travel_agency(travel_agency);
+    customer->add_transaction(this->get_transaction(id));
+    hotel->add_customer(customer);
+    hotel->add_travel_agency(travel_agency);
+    hotel->add_transaction(this->get_transaction(id));
+
     return true;
 }
 // bool remove_transaction(Transactions* transaction);
@@ -295,6 +292,23 @@ void TravelAgency::show_transactions()
     }
     cout << "------------------------" << endl;
 }
-// void show_unique_transactions(const string& name);
 
+void TravelAgency::show_unique_transactions(const string &name)
+{
+    for (auto it = transactions.begin(); it != transactions.end(); ++it)
+    {
+        if (it->get_hotel()->get_name() == name || it->get_customer()->get_name() == name)
+        {
+            cout << "------------------------" << endl;
+            cout << "ID : " << it->get_id() << endl;
+            cout << "Customer : " << it->get_customer()->get_name() << endl;
+            cout << "Hotel : " << it->get_hotel()->get_name() << endl;
+            cout << "Adress : " << it->get_hotel()->get_adress() << endl;
+            cout << "Room type : " << it->get_hotel()->get_room_type() << endl;
+            cout << "Nights of stay : " << it->get_hotel()->get_stay_nights() << endl;
+            cout << "Price : " << it->get_hotel()->get_price() << endl;
+        }
+        cout << "------------------------" << endl;
+    }
+}
 // void allocate_pointers(TravelAgency* travel_agency, Customer* customer, Hotel* hotel, Transactions* transaction, string type);

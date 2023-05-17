@@ -30,12 +30,10 @@ public:
     // bool remove_transaction(Transactions *transaction);
     bool check_transaction(int id, string type, Customer *customer, Hotel *hotel);
 
-    // void allocate_pointers(TravelAgency *travel_agency, Customer *customer, Hotel *hotel, Transactions *transaction, string type);
-
     void show_customers();
     void show_hotels();
     void show_transactions();
-    // void show_unique_transactions(const string &name);
+    void show_unique_transactions(const string &name);
     void print_customer(string name);
     void print_hotel(string name);
     void print_transaction(const int &id);
@@ -44,7 +42,7 @@ public:
     string get_name();
     Customer *get_customer(string name);
     Hotel *get_hotel(string name);
-    Transactions *get_transaction(int id, string name_customer, string name_hotel);
+    Transactions *get_transaction(int id);
     TravelAgency *get_travel_agency();
 
 private:
