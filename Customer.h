@@ -2,7 +2,6 @@
 #define CUSTOMER_H
 #include <iostream>
 #include <string>
-#include <cstdlib>
 #include <list>
 #include <algorithm>
 #include "Hotel.h"

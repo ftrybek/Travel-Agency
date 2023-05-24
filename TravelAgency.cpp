@@ -49,7 +49,7 @@ TravelAgency *TravelAgency::get_travel_agency()
 
 Hotel *TravelAgency::find_hotel(string name)
 {
-    for (auto & h : hotels)
+    for (auto &h : hotels)
     {
         if (h->get_name() == name)
         {
@@ -311,4 +311,3 @@ void TravelAgency::show_unique_transactions(const string &name)
         cout << "------------------------" << endl;
     }
 }
-// void allocate_pointers(TravelAgency* travel_agency, Customer* customer, Hotel* hotel, Transactions* transaction, string type);

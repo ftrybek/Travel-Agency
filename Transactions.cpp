@@ -37,7 +37,3 @@ TravelAgency *Transactions::get_travel_agency()
 {
     return travel_agency;
 }
-
-// void print_transaction();
-
-// bool is_enough_balance();
