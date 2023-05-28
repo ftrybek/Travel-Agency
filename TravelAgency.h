@@ -26,7 +26,7 @@ public:
     bool add_hotel(Hotel *hotel);
     bool remove_hotel(string name);
     bool add_transaction(int id, string type, Customer *customer, Hotel *hotel, TravelAgency *travel_agency);
-    // bool remove_transaction(Transactions *transaction);
+    bool remove_transaction(Transactions *transaction);
     bool check_transaction(int id, string type, Customer *customer, Hotel *hotel);
 
     void show_customers();

@@ -9,9 +9,7 @@ using namespace std;
 
 int main()
 {
-    static const string TRAVEL_AGENCY_NAME = "ITAKA";
-
-    TravelAgency agency1(TRAVEL_AGENCY_NAME);
+    TravelAgency agency1("ITAKA");
     Hotel hotel1("Grand", "London", "single-bed", 3, 400);
     Hotel hotel2("Shibuya", "Tokyo", "double-bed", 2, 249.5);
     Customer cust1("John Wayne", "jw@gmail.com", 1000);
@@ -55,7 +53,6 @@ int main()
     cust2.cancel_booking(1111, &hotel2, &agency1);
     agency1.print_transaction(1111);
     agency1.print_customer("Mary Jane");
-    cout << "Hello" << endl;
     agency1.show_unique_transactions("Shibuya");
 
     return 0;

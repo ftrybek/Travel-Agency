@@ -178,7 +178,17 @@ bool Hotel::add_transaction(Transactions *transaction)
 	transactions.emplace_back(transaction);
 	return true;
 }
-// bool remove_transaction(Transactions* transaction);
+
+bool Hotel::remove_transaction(Transactions *transaction)
+{
+	if (transaction == nullptr)
+	{
+		return false;
+	}
+
+	transactions.remove(transaction);
+	return true;
+}
 
 void Hotel::remove_all_transactions()
 {
@@ -201,13 +211,3 @@ void Hotel::remove_travel_agencies(TravelAgency *travel_agency)
 			{ return t == travel_agency; }),
 		travel_agencies.end());
 }
-// bool Company::Company_Remove_StockMarket(string name)
-// {
-// 		for (auto it = stockmarkets.begin(); it != stockmarkets.end(); ++it) {
-// 			if ((*it)->Get_Name() == name) {
-// 				stockmarkets.erase(it);
-// 				return true;
-// 			}
-// 		}
-// 		return false;
-// }

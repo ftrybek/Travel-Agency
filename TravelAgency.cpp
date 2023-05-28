@@ -107,7 +107,6 @@ bool TravelAgency::remove_customer(string name)
     todelete->remove_all_transactions();
     todelete->remove_all_hotels();
     todelete->remove_travel_agency(this);
-    // Remove_TransactionCustomer(todelete);
 
     for (auto it = customers.begin(); it != customers.end(); ++it)
     {
@@ -144,7 +143,6 @@ bool TravelAgency::remove_hotel(string name)
     todelete->remove_all_transactions();
     todelete->remove_all_customers();
     todelete->remove_travel_agency(this);
-    // Remove_TransactionCompany(todelete);
 
     for (auto it = hotels.begin(); it != hotels.end(); ++it)
     {
@@ -184,7 +182,27 @@ bool TravelAgency::add_transaction(int id, string type, Customer *customer, Hote
 
     return true;
 }
-// bool remove_transaction(Transactions* transaction);
+
+bool TravelAgency::remove_transaction(Transactions *transaction)
+{
+
+    if (transaction == nullptr)
+    {
+        return false;
+    }
+    transaction->get_customer()->remove_transaction(transaction);
+    transaction->get_hotel()->remove_transaction(transaction);
+
+    for (auto it = transactions.begin(); it != transactions.end(); ++it)
+    {
+        if (&(*it) == transaction)
+        {
+            transactions.erase(it);
+            return true;
+        }
+    }
+    return false;
+}
 
 bool TravelAgency::check_transaction(int id, string type, Customer *customer, Hotel *hotel)
 {
